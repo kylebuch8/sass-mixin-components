@@ -1,0 +1,30 @@
+$padding: 16px;
+
+@mixin cardElement {
+  display: block;
+  background-color: var(--card-element--backgroundColor, #f1f3f4);
+  color: var(--card-element--color, #333);
+  border-radius: var(--card-element--borderRadius, 2px);
+  border: var(--card-element--border, 1px solid #efefef);
+}
+
+@mixin cardElementHeader {
+  padding: var(--card-element-header--padding, $padding/2 $padding);
+
+  > {
+    @include cardElementHeaderText;
+  }
+}
+
+@mixin cardElementHeaderText {
+  font-size: var(--card-element-headerText--fontSize, 32px);
+  margin: var(--card-element-headerText--margin, 0);
+}
+
+@mixin cardElementBody {
+  padding: var(--card-element-body--padding, $padding);
+}
+
+@mixin cardElementFooter {
+  padding: var(--card-element-footer--padding, $padding);
+}

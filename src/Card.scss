@@ -1,0 +1,23 @@
+@import "./card-element-base";
+
+.Card {
+  @include cardElement;
+
+  .header {
+    @include cardElementHeader;
+
+    @for $i from 1 through 6 {
+      h#{7 - $i}) {
+        @include cardElementHeaderText;
+      }
+    }
+  }
+
+  .body {
+    @include cardElementBody;
+  }
+
+  .footer {
+    @include cardElementFooter;
+  }
+}

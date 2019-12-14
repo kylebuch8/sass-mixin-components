@@ -1,68 +1,81 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Sass Mixin Components
 
-## Available Scripts
+This repository demonstrates how you can use a base Sass file that defines the
+high level parts of a component to drive the styles of component implementations
+that could be written differently like a React component or a web component.
 
-In the project directory, you can run:
+## Get started
 
-### `yarn start`
+```
+npm install
+npm run dev
+```
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How it works
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+`card-element-base.scss` in the `/src` directory is the base definition of a
+card component and its parts.
 
-### `yarn test`
+`Card.scss` in the `/src` directory, which drives the styles for React version
+of the card, imports `card-element-base.scss` and includes the mixins from the
+base card definition.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+@import "./card-element-base";
 
-### `yarn build`
+.Card {
+  @include cardElement;
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  .header {
+    @include cardElementHeader;
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+    @for $i from 1 through 6 {
+      h#{7 - $i}) {
+        @include cardElementHeaderText;
+      }
+    }
+  }
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  .body {
+    @include cardElementBody;
+  }
 
-### `yarn eject`
+  .footer {
+    @include cardElementFooter;
+  }
+}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+`wc-card.scss` in the `/public/wc` directory, drives the styles for the web
+component version of the card, also imports `card-element-base.scss` and
+includes the mixins from the base card definition.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+@import "../../src/card-element-base";
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+:host {
+  @include cardElement;
+}
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+.header {
+  @include cardElementHeader;
+}
 
-## Learn More
+@for $i from 1 through 6 {
+  ::slotted(h#{7 - $i}) {
+    @include cardElementHeaderText;
+  }
+}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+.body {
+  @include cardElementBody;
+}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+.footer {
+  @include cardElementFooter;
+}
+```
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+The end result is two different implementations of card, one a React component
+and one a web component, with two different sets of markup that end up looking
+the exact same.

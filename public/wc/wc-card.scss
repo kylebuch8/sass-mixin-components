@@ -1,4 +1,4 @@
-@import "./card-element-base";
+@import "../../src/card-element-base";
 
 :host {
   @include cardElement;

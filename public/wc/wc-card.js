@@ -4,11 +4,7 @@ class WcCard extends HTMLElement {
 
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          display: block
-        }
-      </style>
+      <style></style>
       <div class="header">
         <slot name="header"></slot>
       </div>
